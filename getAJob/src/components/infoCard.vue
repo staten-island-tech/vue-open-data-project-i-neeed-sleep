@@ -1,8 +1,8 @@
 <template>
     <router-link :to="thingPath" class="card">
         <div>
-            <h2>{{ job.civil_service_title }}</h2>
-            <h3>{{ job.agency }}</h3>
+            <h1>{{ job.civil_service_title }}</h1>
+            <h2>{{ job.agency }}</h2>
         </div>
     </router-link>
 </template>
@@ -18,17 +18,22 @@ const props = defineProps({
 })
 
 const thingPath = computed (()=>{
-    return `/thing/${props.job.job_id}`
+    return `/info/${props.job.job_id}`
 })
 </script>
 
 <style scoped>
-div {
-    width: 30vw;
-    height: 35vw;
-    background-color: #9da07d;
-    color: #000000;
+@import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Grenze+Gotisch:wght@100..900&display=swap');div {
+    width: 40%;
+    height: 40vh;
+    background-color: #E0E2DB;
+    color: #080705;
     text-align: center;
-    
+    font-family: "Grenze Gotisch", serif;
+    margin: 5%;
+    padding-top: 5%;
+}
+h1{
+    font-size: 230%;
 }
 </style>

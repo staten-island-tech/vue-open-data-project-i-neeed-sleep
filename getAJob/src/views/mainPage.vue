@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='container'>
         <InfoCard v-for="job in jobs" :key="job.civil_service_title" :job="job"></InfoCard>
     </div>
 </template>
@@ -25,5 +25,11 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-
+.container{
+  width: 100%;
+  height: 100%;
+  background-color: #BEB7A4;
+  display: flexbox;
+  padding:3%;
+}
 </style>

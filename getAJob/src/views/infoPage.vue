@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h2>something something {{ thing.name }}</h2>
-        <img :src="thing.img">
+        <h1>{{ job.name }}</h1>
+        
     </div>
 </template>
 
@@ -9,29 +9,31 @@
 import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute()
-const thing = ref({})
+const job = ref({})
 
 
 async function getItem(id) {
   try{
-    const response = await fetch(`link/${id}`)
+    const response = await fetch(`https://data.cityofnewyork.us/resource/kpav-sd4t.json`)
     const data = await response.json()
-    thing.value = data.results
+    job.value = data.filter(job => job.job_id == id)
   }catch(error){
     console.log(error)
   }
 }
 onMounted(function(){
-    getItem(route.params.id)
+    getItem(id)
 })
 watch(
-    () => route.params.id,
-    function (id){
+    function (){
         getItem(id)
     },
 )
 </script>
 
 <style scoped>
-
+h1{
+  background-color: #362023;
+  color: #E6AF2E;
+}
 </style>
