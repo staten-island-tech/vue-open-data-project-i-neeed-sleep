@@ -23,17 +23,22 @@ const thingPath = computed (()=>{
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Grenze+Gotisch:wght@100..900&display=swap');div {
-    width: 40%;
-    height: 40vh;
+@import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Grenze+Gotisch:wght@100..900&display=swap');
+div {
+    width: 25vw;
+    max-width: 300px;
+    height: 26vw;
+    max-height: 312px;
     background-color: #E0E2DB;
     color: #080705;
-    text-align: center;
     font-family: "Grenze Gotisch", serif;
-    margin: 5%;
-    padding-top: 5%;
+    margin: 5vw;
+    padding: 2vw;
 }
 h1{
-    font-size: 230%;
+    font-size: 180%;
+}
+h2{
+    font-size: 100%;
 }
 </style>

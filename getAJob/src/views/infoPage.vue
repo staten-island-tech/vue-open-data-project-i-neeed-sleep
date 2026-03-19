@@ -14,20 +14,20 @@ const job = ref({})
 
 async function getItem(id) {
   try{
-    const response = await fetch(`https://data.cityofnewyork.us/resource/kpav-sd4t.json`)
-    const data = await response.json()
-    job.value = data.filter(job => job.job_id == id)
+    const response = await fetch(`https://data.cityofnewyork.us/resource/kpav-sd4t.json?job_id=${id}`)
+    job.value = await response.json()
   }catch(error){
     console.log(error)
   }
 }
-onMounted(function(){
-    getItem(id)
+onMounted(()=>{
+    getItem(route.params.id)
 })
 watch(
-    function (){
-        getItem(id)
-    },
+  ()=> route.params.job_id,
+  function (id){
+      getItem(id)
+  },
 )
 </script>
 
