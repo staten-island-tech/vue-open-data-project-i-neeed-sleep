@@ -11,7 +11,7 @@ const router = createRouter({
       component: MainPage,
     },
     {
-      path:'/info/:id',
+      path:'/info/:job_id',
       name:"info",
       component: InfoPage,
     },

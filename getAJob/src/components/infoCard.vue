@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="thingPath" class="card">
+    <router-link :to="detailPage" class="card">
         <div>
             <h1>{{ job.civil_service_title }}</h1>
             <h2>{{ job.agency }}</h2>
@@ -17,7 +17,7 @@ const props = defineProps({
     },
 })
 
-const thingPath = computed (()=>{
+const detailPage = computed (()=>{
     return `/info/${props.job.job_id}`
 })
 </script>
@@ -36,9 +36,9 @@ div {
     padding: 2vw;
 }
 h1{
-    font-size: 180%;
+    font-size: 3vw;
 }
 h2{
-    font-size: 100%;
+    font-size: 2vw;
 }
 </style>

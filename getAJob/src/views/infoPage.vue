@@ -1,6 +1,10 @@
 <template>
+<router-link to='/'>
+  <button>EE</button>
+</router-link>
     <div>
-        <h1>{{ job.name }}</h1>
+        <h1>{{ job.civil_service_title }}</h1>
+        <p>{{ job.job_description }}</p>
         
     </div>
 </template>
@@ -15,13 +19,14 @@ const job = ref({})
 async function getItem(id) {
   try{
     const response = await fetch(`https://data.cityofnewyork.us/resource/kpav-sd4t.json?job_id=${id}`)
-    job.value = await response.json()
+    const data = await response.json()
+    job.value = data[0]
   }catch(error){
     console.log(error)
   }
 }
 onMounted(()=>{
-    getItem(route.params.id)
+    getItem(route.params.job_id)
 })
 watch(
   ()=> route.params.job_id,

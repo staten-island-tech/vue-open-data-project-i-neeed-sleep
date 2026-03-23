@@ -1,8 +1,9 @@
 <template>
 <div class='container'>
   <div class="header">
-      <h1>Job Posts</h1>
+    <h1>Job Posts</h1>
   </div>
+
     <InfoCard v-for="job in jobs" :key="job.civil_service_title" :job="job"></InfoCard>
 </div>
 </template>
@@ -48,8 +49,7 @@ h1{
   background-color: #BEB7A4;
   display: flex;
   flex-wrap: wrap;
-  padding:3%;
-  padding-top: 15vw;
+  padding-top: 16vw;
   position: absolute;
   top:0%;
   justify-content: center;
