@@ -12,6 +12,25 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
+const props = defineProps({
+    jobs: {
+        type: Object,
+        required: true,
+    },
+})
+
+const labels = ref([])
+
+
+jobs.forEach(job => {
+    if(job.title_classification && labels.include(job.title_classification)===false){
+        labels.value.push({ [job.title_classification] : 1});
+    }
+    if(job.title_classification && labels.include(job.title_classification)===true){
+        labels.value[job.title_classification]++
+    }
+});
+
 export default {
     name: 'jobChart',
     components: { Bar },
@@ -19,10 +38,23 @@ export default {
         return {
             chartData: {
                 labels: [ 'January', 'February', 'March' ],
-                datasets: [ { data: [40, 20, 12] } ]
+                datasets: [ 
+                    { 
+                        label: 'Jobs that Classify',
+                        backgroundColor: '#080705',
+                        data: [],
+
+                    } ]
             },
             chartOptions: {
-                responsive: true
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    Title: {
+                        display: true,
+                        text: 'E'
+                    }
+                }
             }
         }
     }
