@@ -1,6 +1,6 @@
 <template>
     <Bar 
-        id=""
+        id="stats"
         :options="chartOptions"
         :data="chartData"
     />
@@ -12,49 +12,34 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-const props = defineProps({
-    jobs: {
-        type: Object,
-        required: true,
-    },
-})
-
-const labels = ref([])
-
-
-jobs.forEach(job => {
-    if(job.title_classification && labels.include(job.title_classification)===false){
-        labels.value.push({ [job.title_classification] : 1});
-    }
-    if(job.title_classification && labels.include(job.title_classification)===true){
-        labels.value[job.title_classification]++
-    }
-});
-
 export default {
     name: 'jobChart',
     components: { Bar },
+    props: {
+        chartData: {
+            type: Object,
+            required: true,
+        },
+        chartLabels: {
+            type: Object,
+            required: true,
+        },
+    },
     data() {
         return {
             chartData: {
-                labels: [ 'January', 'February', 'March' ],
+                labels: this.chartLabels,
                 datasets: [ 
                     { 
                         label: 'Jobs that Classify',
                         backgroundColor: '#080705',
-                        data: [],
+                        data: this.chartData,
 
                     } ]
             },
             chartOptions: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    Title: {
-                        display: true,
-                        text: 'E'
-                    }
-                }
             }
         }
     }

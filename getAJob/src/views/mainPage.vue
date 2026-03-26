@@ -3,27 +3,64 @@
   <div class="header">
     <h1>Job Posts</h1>
   </div>
-
-    <InfoCard v-for="job in jobs" :key="job.civil_service_title" :job="job"></InfoCard>
+    <JobChart :chartData="classData" :chartLabels="classLabels"/>
+    <InfoCard v-for="job in jobList" :key="job.civil_service_title" :job="job"></InfoCard>
 </div>
 </template>
 
 <script setup>
 import InfoCard from '@/components/infoCard.vue'
+import JobChart from '@/components/jobChart.vue'
 import {ref, onMounted} from 'vue'
 
-const jobs = ref([])
+const jobList = ref([])
+
+const jobClass = ref([])
+const classLabels = ref([])
+const classData = ref([])
+
+const jobComp = ref([])
+const compLabels = ref([])
+const compData = ref([])
+
 
 async function getItem() {
   try{
     const response = await fetch('https://data.cityofnewyork.us/resource/kpav-sd4t.json')
-    jobs.value = await response.json()
+    jobList.value = await response.json()
   }catch(error){
     console.log(error)
   }
 }
+
+function chartA(){
+  jobList.value.forEach(job => {
+    if(job.title_classification && jobClass.include(job.title_classification)===false){
+        jobClass.value.push({ [job.title_classification] : 1});
+    }
+    if(job.title_classification && jobClass.include(job.title_classification)===true){
+        jobClass.value[job.title_classification]++
+    }
+  });
+  classLabels.value = Object.keys(jobClass)
+  classData.value = Object.values(jobClass)
+}
+
+
+// function chartB(){
+//   jobsList.forEach(job => {
+//     if(job.title_classification && jobClass.include(job.title_classification)===false){
+//         jobClass.value.push({ [job.title_classification] : 1});
+//     }
+//     if(job.title_classification && jobClass.include(job.title_classification)===true){
+//         jobClass.value[job.title_classification]++
+//     }
+//   });
+// }
+
 onMounted(()=>{
   getItem()
+  chartA()
 })
 
 </script>
