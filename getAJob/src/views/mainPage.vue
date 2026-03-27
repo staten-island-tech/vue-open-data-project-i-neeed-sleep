@@ -3,7 +3,7 @@
   <div class="header">
     <h1>Job Posts</h1>
   </div>
-    <JobChart :chartData="classData" :chartLabels="classLabels"/>
+    <JobChart :chartInfo="classInfo" :chartLabels="classLabels"/>
     <InfoCard v-for="job in jobList" :key="job.civil_service_title" :job="job"></InfoCard>
 </div>
 </template>
@@ -15,9 +15,8 @@ import {ref, onMounted} from 'vue'
 
 const jobList = ref([])
 
-const jobClass = ref([])
 const classLabels = ref([])
-const classData = ref([])
+const classInfo = ref([])
 
 const jobComp = ref([])
 const compLabels = ref([])
@@ -33,17 +32,15 @@ async function getItem() {
   }
 }
 
-function chartA(){
+async function chartA(){
   jobList.value.forEach(job => {
-    if(job.title_classification && jobClass.include(job.title_classification)===false){
-        jobClass.value.push({ [job.title_classification] : 1});
+    if(job.title_classification){
+      classLabels.value.push(job.title_classification);
     }
-    if(job.title_classification && jobClass.include(job.title_classification)===true){
-        jobClass.value[job.title_classification]++
-    }
+  // if(jobClass.include(job.title_classification)===true){
+  //   classInfo.value[]
+  // }
   });
-  classLabels.value = Object.keys(jobClass)
-  classData.value = Object.values(jobClass)
 }
 
 
@@ -61,6 +58,7 @@ function chartA(){
 onMounted(()=>{
   getItem()
   chartA()
+  console.log(classLabels.value)
 })
 
 </script>

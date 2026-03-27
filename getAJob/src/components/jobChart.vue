@@ -16,7 +16,7 @@ export default {
     name: 'jobChart',
     components: { Bar },
     props: {
-        chartData: {
+        chartInfo: {
             type: Object,
             required: true,
         },
@@ -33,12 +33,11 @@ export default {
                     { 
                         label: 'Jobs that Classify',
                         backgroundColor: '#080705',
-                        data: this.chartData,
-
+                        data: this.chartInfo,
                     } ]
             },
             chartOptions: {
-                responsive: true,
+                responsive: false,
                 maintainAspectRatio: false,
             }
         }

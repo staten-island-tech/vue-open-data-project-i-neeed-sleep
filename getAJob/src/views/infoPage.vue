@@ -1,6 +1,6 @@
 <template>
 <router-link to='/'>
-  <button>EE</button>
+  <button>Back to List</button>
 </router-link>
     <div>
         <h1>{{ job.civil_service_title }}</h1>
@@ -37,8 +37,20 @@ watch(
 </script>
 
 <style scoped>
+
 h1{
   background-color: #362023;
   color: #E6AF2E;
+  font-size: 5vw;
+  padding-left: 2vw;
+}
+p{
+  font-size: 2vw;
+  padding: 2vw;
+}
+div {
+  width: 100%;
+  height: 100%;
+  background-color: #BEB7A4;
 }
 </style>
