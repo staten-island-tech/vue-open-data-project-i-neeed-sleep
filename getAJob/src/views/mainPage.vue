@@ -3,8 +3,11 @@
   <div class="header">
     <h1>Job Posts</h1>
   </div>
-  <div class="chart-container">
+  <div class="chart-container" v-if="loaded">
     <JobChart :chartInfo="classInfo" :chartLabels="classLabels"/>
+  </div>
+  <div class="chart-container" v-if="loaded">
+    <JobChart2 :chartInfo="postData" :chartLabels="postLabels"/>
   </div>
     <InfoCard v-for="job in jobList" :key="job.civil_service_title" :job="job"></InfoCard>
 </div>
@@ -13,6 +16,7 @@
 <script setup>
 import InfoCard from '@/components/infoCard.vue'
 import JobChart from '@/components/jobChart.vue'
+import JobChart2 from '@/components/jobChart2.vue'
 import {ref, onMounted} from 'vue'
 
 const jobList = ref([])
@@ -20,10 +24,10 @@ const jobList = ref([])
 const classLabels = ref([])
 const classInfo = ref([])
 
-const jobComp = ref([])
-const compLabels = ref([])
-const compData = ref([])
+const postLabels = ref([])
+const postData = ref([])
 
+const loaded = ref(false)
 
 async function getItem() {
   try{
@@ -48,15 +52,24 @@ function chartA(){
   classInfo.value = Object.values(counts)
 }
 
-function show(){
-  console.log(classLabels.value)
-  console.log(classInfo.value)
-  console.log(jobList.value)
+function chartB(){
+  const placeholder = ref([])
+  jobList.value.forEach(job => {
+    placeholder.value.push(job.posting_type)
+  });
+  const counts = placeholder.value.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
+  postLabels.value = Object.keys(counts)
+  postData.value = Object.values(counts)
 }
 
 onMounted(async ()=>{
   await getItem()
-  chartA()
+  await chartA()
+  await chartB()
+  loaded.value = true
 })
 
 </script>
@@ -88,8 +101,8 @@ h1{
   justify-content: center;
 }
 .chart-container{
-  width:90%;
-  height: 50vw;
+  width:90vw;
+  height: 60vw;
   margin: 5%;
 }
 </style>

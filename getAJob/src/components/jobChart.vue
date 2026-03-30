@@ -39,6 +39,12 @@ export default {
             chartOptions: {
                 responsive: true,
                 maintainAspectRatio: false,
+                plugins:{
+                    title: {
+                        display: true,
+                        text: 'Title Classification'
+                    }
+                }
             }
         }
     }
