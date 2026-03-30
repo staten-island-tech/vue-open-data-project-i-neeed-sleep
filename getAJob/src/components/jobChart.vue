@@ -31,13 +31,13 @@ export default {
                 labels: this.chartLabels,
                 datasets: [ 
                     { 
-                        label: 'Jobs that Classify',
+                        label: 'Jobs that Under Classification',
                         backgroundColor: '#080705',
                         data: this.chartInfo,
                     } ]
             },
             chartOptions: {
-                responsive: false,
+                responsive: true,
                 maintainAspectRatio: false,
             }
         }

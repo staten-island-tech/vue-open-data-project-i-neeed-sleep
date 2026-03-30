@@ -3,7 +3,9 @@
   <div class="header">
     <h1>Job Posts</h1>
   </div>
+  <div class="chart-container">
     <JobChart :chartInfo="classInfo" :chartLabels="classLabels"/>
+  </div>
     <InfoCard v-for="job in jobList" :key="job.civil_service_title" :job="job"></InfoCard>
 </div>
 </template>
@@ -26,39 +28,35 @@ const compData = ref([])
 async function getItem() {
   try{
     const response = await fetch('https://data.cityofnewyork.us/resource/kpav-sd4t.json')
-    jobList.value = await response.json()
+    const fullList = await response.json()
+    jobList.value = fullList.slice(0,100)
   }catch(error){
     console.log(error)
   }
 }
 
-async function chartA(){
+function chartA(){
+  const placeholder = ref([])
   jobList.value.forEach(job => {
-    if(job.title_classification){
-      classLabels.value.push(job.title_classification);
-    }
-  // if(jobClass.include(job.title_classification)===true){
-  //   classInfo.value[]
-  // }
+    placeholder.value.push(job.title_classification)
   });
+  const counts = placeholder.value.reduce((acc, val) => {
+    acc[val] = (acc[val] || 0) + 1;
+    return acc;
+  }, {});
+  classLabels.value = Object.keys(counts)
+  classInfo.value = Object.values(counts)
 }
 
-
-// function chartB(){
-//   jobsList.forEach(job => {
-//     if(job.title_classification && jobClass.include(job.title_classification)===false){
-//         jobClass.value.push({ [job.title_classification] : 1});
-//     }
-//     if(job.title_classification && jobClass.include(job.title_classification)===true){
-//         jobClass.value[job.title_classification]++
-//     }
-//   });
-// }
-
-onMounted(()=>{
-  getItem()
-  chartA()
+function show(){
   console.log(classLabels.value)
+  console.log(classInfo.value)
+  console.log(jobList.value)
+}
+
+onMounted(async ()=>{
+  await getItem()
+  chartA()
 })
 
 </script>
@@ -88,5 +86,10 @@ h1{
   position: absolute;
   top:0%;
   justify-content: center;
+}
+.chart-container{
+  width:90%;
+  height: 50vw;
+  margin: 5%;
 }
 </style>
