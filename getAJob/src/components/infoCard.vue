@@ -25,9 +25,8 @@ const detailPage = computed (()=>{
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400;1,700&family=Grenze+Gotisch:wght@100..900&display=swap');
 div {
-    width: 25vw;
-    max-width: 300px;
-    height: 26vw;
+    width: 20vw;
+    height: 22vw;
     max-height: 312px;
     background-color: #E0E2DB;
     color: #080705;
