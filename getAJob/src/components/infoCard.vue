@@ -36,7 +36,7 @@ div {
     padding: 2vw;
 }
 h1{
-    font-size: 2.5vw;
+    font-size: 2vw;
 }
 h2{
     font-size: 1.5vw;
