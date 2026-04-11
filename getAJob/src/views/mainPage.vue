@@ -101,8 +101,8 @@ h1{
   justify-content: center;
 }
 .chart-container{
-  width:90vw;
-  height: 60vw;
+  width:30vw;
+  height: 30vw;
   margin: 5%;
 }
 </style>
